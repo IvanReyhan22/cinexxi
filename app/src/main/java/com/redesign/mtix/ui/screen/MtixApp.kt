@@ -1,7 +1,6 @@
 package com.redesign.mtix.ui.screen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -12,11 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -27,19 +24,27 @@ import com.redesign.mtix.R
 import com.redesign.mtix.ui.navigation.NavItem
 import com.redesign.mtix.ui.navigation.Screen
 import com.redesign.mtix.ui.screen.login.LoginScreen
+import com.redesign.mtix.ui.screen.register.RegisterScreen
 import com.redesign.mtix.ui.theme.Dimens
 
 @Composable
 fun MtixApp(
     modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
 ) {
-    val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    val bottomNavScreen = listOf(
+        Screen.Home.route,
+        Screen.Theater.route,
+        Screen.MyFood.route,
+        Screen.Account.route
+    )
 
     Scaffold(
         modifier = modifier,
-        bottomBar = {
-            BottomBar(navController = navController)
-        },
+        bottomBar = { if (bottomNavScreen.contains(currentRoute)) BottomBar(navController = navController) },
         content = {
             MyNavigation(navController = navController)
         }
@@ -50,18 +55,24 @@ fun MtixApp(
 private fun MyNavigation(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.Login.route) {
+    NavHost(navController = navController, startDestination = Screen.OnBoarding.route) {
+        composable(Screen.OnBoarding.route) {
+            OnBoarding(navController = navController)
+        }
         composable(Screen.Login.route) {
             LoginScreen()
+        }
+        composable(Screen.Register.route) {
+            RegisterScreen()
         }
     }
 }
 
 @Composable
 private fun BottomBar(
-    navController: NavController,
+    navController: NavHostController,
 ) {
-    val selectedItem = rememberSaveable { mutableStateOf(0) }
+    val selectedItem = rememberSaveable { mutableStateOf(Screen.Login.route) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
@@ -75,7 +86,7 @@ private fun BottomBar(
         NavItem(
             title = stringResource(R.string.theater),
             icon = if (currentRoute == Screen.Theater.route) R.drawable.ic_solid_building_alpine else R.drawable.ic_outline_building,
-            screen = Screen.Login,
+            screen = Screen.Register,
             contentDescription = stringResource(R.string.theater),
         ),
         NavItem(
@@ -97,10 +108,10 @@ private fun BottomBar(
         tonalElevation = Dimens.spacing_1,
         containerColor = MaterialTheme.colorScheme.background
     ) {
-        navigationItems.forEachIndexed { index, item ->
+        navigationItems.forEachIndexed { _, item ->
             NavigationBarItem(
                 onClick = {
-                    selectedItem.value = index
+                    selectedItem.value = item.screen.route
                     navController.navigate(route = item.screen.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
@@ -116,7 +127,7 @@ private fun BottomBar(
                         modifier = Modifier.padding(top = Dimens.spacing_8)
                     )
                 },
-                selected = index == selectedItem.value,
+                selected = item.screen.route == selectedItem.value,
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = MaterialTheme.colorScheme.primary,
                     selectedTextColor = MaterialTheme.colorScheme.primary,

@@ -7,4 +7,12 @@
     <string name="theater">Theater</string>
     <string name="myfood">MyFood</string>
     <string name="account">Account</string>
+    <string name="background_image">background image</string>
+    <string name="welcome">Welcome</string>
+    <string name="logo_desc">cinexxi logo</string>
+    <string name="motto">Your tickets to Movie Paradise. Instant access to movie and your snack.</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="skip_sign_in">Skip sign in,</string>
+    <string name="browse_first">Browse First</string>
 </resources>

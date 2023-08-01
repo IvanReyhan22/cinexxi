@@ -2,6 +2,7 @@ package com.redesign.mtix.ui.navigation
 
 sealed class Screen(val route: String) {
 
+    object OnBoarding : Screen("onboarding_screen")
     object Login : Screen("login_screen")
     object Register : Screen("register_screen")
 
