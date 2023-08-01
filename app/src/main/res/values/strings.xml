@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">mtix</string>
+    <string name="default_content_description">Default image description</string>
+    <string name="placeholder_template">Type...</string>
+    <string name="rounded_icon_button">Rounded Icon Button</string>
+    <string name="home">Home</string>
+    <string name="theater">Theater</string>
+    <string name="myfood">MyFood</string>
+    <string name="account">Account</string>
+</resources>
