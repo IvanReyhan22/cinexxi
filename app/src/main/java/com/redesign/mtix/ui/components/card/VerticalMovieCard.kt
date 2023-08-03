@@ -29,16 +29,16 @@ fun VerticalMovieCard(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.width(if (title != null) 250.dp else 140.dp)
+        modifier = modifier.fillMaxWidth()
     ) {
-        Box {
+        Box(modifier = Modifier.fillMaxWidth()) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current).data(imageUrl).crossfade(true)
                     .build(),
                 contentDescription = title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(if (title != null) 250.dp else 140.dp)
+                    .fillMaxWidth()
                     .height(if (title != null) 180.dp else 200.dp)
                     .clip(Shapes.large)
             )
@@ -53,7 +53,8 @@ fun VerticalMovieCard(
             Text(
                 text = title,
                 style = typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                modifier=Modifier.fillMaxWidth()
             )
         }
     }

@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.redesign.mtix.R
 import com.redesign.mtix.ui.navigation.NavItem
 import com.redesign.mtix.ui.navigation.Screen
+import com.redesign.mtix.ui.screen.home.HomeScreen
 import com.redesign.mtix.ui.screen.login.LoginScreen
 import com.redesign.mtix.ui.screen.register.RegisterScreen
 import com.redesign.mtix.ui.theme.Dimens
@@ -55,15 +56,18 @@ fun MtixApp(
 private fun MyNavigation(
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.OnBoarding.route) {
+    NavHost(navController = navController, startDestination = Screen.Home.route) {
         composable(Screen.OnBoarding.route) {
             OnBoarding(navController = navController)
         }
         composable(Screen.Login.route) {
-            LoginScreen()
+            LoginScreen(navController = navController)
         }
         composable(Screen.Register.route) {
-            RegisterScreen()
+            RegisterScreen(navController = navController)
+        }
+        composable(Screen.Home.route) {
+            HomeScreen(navController = navController)
         }
     }
 }

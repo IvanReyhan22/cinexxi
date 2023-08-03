@@ -15,4 +15,20 @@
     <string name="sign_in">Sign In</string>
     <string name="skip_sign_in">Skip sign in,</string>
     <string name="browse_first">Browse First</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="or">or</string>
+    <string name="google_login">google login</string>
+    <string name="facebook_login">facebook login</string>
+    <string name="twitter_login">twitter login</string>
+    <string name="new_to_cinexxi">New to CineXXI,</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password_hint">*consist of atleast one number, capital letter</string>
+    <string name="already_have_an_account">Already have an account,</string>
+    <string name="sign_up_term">By clicking Sign Up, I confirm i have agreed to,</string>
+    <string name="terms_condition"><![CDATA[Terms & Condition]]></string>
+    <string name="now_showing">Now Showing</string>
+    <string name="all">All</string>
+    <string name="advance_ticket">Advance Ticket</string>
 </resources>

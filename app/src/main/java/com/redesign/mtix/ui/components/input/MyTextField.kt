@@ -36,6 +36,7 @@ fun MyTextField(
     isPassword: Boolean = false,
     isTextArea: Boolean = false,
     leadingIcon: @Composable (() -> Unit)? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     readOnly: Boolean = false,
 ) {
@@ -105,6 +106,7 @@ fun MyTextField(
                     },
                     shape = Shapes.large,
                     leadingIcon = leadingIcon,
+                    trailingIcon=trailingIcon,
                     contentPadding = PaddingValues(
                         horizontal = Dimens.spacing_24,
                         vertical = Dimens.spacing_8
@@ -117,32 +119,6 @@ fun MyTextField(
                 )
             }
         )
-//            TextField(
-//                value = value, onValueChange = { onValueChange(it) },
-//                shape = Shapes.large,
-//                colors = TextFieldDefaults.colors(
-//                    focusedIndicatorColor = Color.Transparent,
-//                    unfocusedIndicatorColor = Color.Transparent,
-//                    unfocusedContainerColor = Color.Transparent
-//                ),
-//                placeholder = {
-//                    Text(
-//                        text = placeholder,
-//                        style = typography.bodyMedium,
-//                        color = MaterialTheme.colorScheme.onSurface
-//                    )
-//                },
-//                readOnly = readOnly,
-//                leadingIcon = leadingIcon,
-//                visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
-//                keyboardOptions = keyboardOptions,
-//                singleLine = !isTextArea,
-//                maxLines = if (isTextArea) 8 else 1,
-//                modifier = Modifier
-//                    .widthIn(min = 1.dp)
-//                    .fillMaxWidth()
-//                    .height(48.dp),
-//            )
 
         // Hint
         if (!hint.isNullOrEmpty()) {
