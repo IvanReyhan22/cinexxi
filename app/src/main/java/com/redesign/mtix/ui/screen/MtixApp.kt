@@ -25,6 +25,7 @@ import com.redesign.mtix.ui.navigation.NavItem
 import com.redesign.mtix.ui.navigation.Screen
 import com.redesign.mtix.ui.screen.home.HomeScreen
 import com.redesign.mtix.ui.screen.login.LoginScreen
+import com.redesign.mtix.ui.screen.movie.detail.MovieDetailScreen
 import com.redesign.mtix.ui.screen.register.RegisterScreen
 import com.redesign.mtix.ui.theme.Dimens
 
@@ -47,16 +48,17 @@ fun MtixApp(
         modifier = modifier,
         bottomBar = { if (bottomNavScreen.contains(currentRoute)) BottomBar(navController = navController) },
         content = {
-            MyNavigation(navController = navController)
+            MyNavigation(navController = navController, modifier = Modifier.padding(it))
         }
     )
 }
 
 @Composable
 private fun MyNavigation(
+    modifier:Modifier = Modifier,
     navController: NavHostController,
 ) {
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(navController = navController, startDestination = Screen.OnBoarding.route,modifier=modifier) {
         composable(Screen.OnBoarding.route) {
             OnBoarding(navController = navController)
         }
@@ -68,6 +70,9 @@ private fun MyNavigation(
         }
         composable(Screen.Home.route) {
             HomeScreen(navController = navController)
+        }
+        composable(Screen.MovieDetail.route){
+            MovieDetailScreen(navController = navController)
         }
     }
 }

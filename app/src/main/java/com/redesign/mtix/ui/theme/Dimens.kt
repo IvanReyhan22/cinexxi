@@ -4,6 +4,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 class Dimensions(
+    val zero: Dp,
     val spacing_1: Dp,
     val spacing_2: Dp,
     val spacing_4: Dp,
@@ -19,6 +20,7 @@ class Dimensions(
     val spacing_32: Dp,
     val spacing_36: Dp,
     val spacing_40: Dp,
+    val spacing_42: Dp,
     val spacing_48: Dp,
     val spacing_52: Dp,
     val spacing_56: Dp,
@@ -36,6 +38,7 @@ class Dimensions(
 )
 
 val sw360Dimensions = Dimensions(
+    zero = 0.dp,
     spacing_1 = 1.dp,
     spacing_2 = 2.dp,
     spacing_4 = 4.dp,
@@ -51,6 +54,7 @@ val sw360Dimensions = Dimensions(
     spacing_32 = 32.dp,
     spacing_36 = 36.dp,
     spacing_40 = 40.dp,
+    spacing_42 = 42.dp,
     spacing_48 = 48.dp,
     spacing_52 = 52.dp,
     spacing_56= 56.dp,

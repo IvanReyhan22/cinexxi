@@ -31,4 +31,6 @@
     <string name="now_showing">Now Showing</string>
     <string name="all">All</string>
     <string name="advance_ticket">Advance Ticket</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="ticket">Ticket</string>
 </resources>

@@ -2,10 +2,14 @@ package com.redesign.mtix.ui.screen.home
 
 //import androidx.compose.foundation.pager.HorizontalPager
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -29,36 +33,37 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.calculateCurrentOffsetForPage
+import com.google.accompanist.pager.*
 import com.redesign.mtix.R
+import com.redesign.mtix.ui.components.card.HorizontalMovieCard
 import com.redesign.mtix.ui.components.card.VerticalMovieCard
 import com.redesign.mtix.ui.components.other.MyCarousel
+import com.redesign.mtix.ui.navigation.Screen
+import com.redesign.mtix.ui.theme.Alpine400
 import com.redesign.mtix.ui.theme.Dimens
 import com.redesign.mtix.ui.theme.MtixTheme
+import dev.chrisbanes.snapper.ExperimentalSnapperApi
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
 ) {
-    val configuration = LocalConfiguration.current
-    val navigationBarHeight = configuration.navigation
-
-    val images = listOf(
-        R.drawable.template_image,
-        R.drawable.horizontal_image_template,
+    val dummyData = listOf(
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
     )
+
     LazyColumn(
         modifier = modifier
-//            .padding(bottom = )
             .fillMaxSize(),
+        contentPadding = PaddingValues(bottom = Dimens.spacing_24)
     ) {
         item {
             MyCarousel(
-                itemsCount = images.size,
+                itemsCount = 2,
                 itemContent = {
                     Box(
                         modifier = Modifier
@@ -96,7 +101,10 @@ fun HomeScreen(
                 modifier = Modifier.padding(bottom = Dimens.spacing_16)
             )
             MovieCarousel(
-                modifier = Modifier.padding(bottom = Dimens.spacing_24)
+                modifier = Modifier.padding(bottom = Dimens.spacing_24),
+                onMovieClicked = {
+                    navController.navigate(Screen.MovieDetail.route)
+                }
             )
 
             // Advance Ticket
@@ -105,7 +113,36 @@ fun HomeScreen(
                 onAllClicked = {},
                 modifier = Modifier.padding(bottom = Dimens.spacing_16)
             )
-            AdvanceTicket()
+            AdvanceTicket(
+                modifier = Modifier.padding(bottom = Dimens.spacing_24),
+                onMovieClicked = {
+                    navController.navigate(Screen.MovieDetail.route)
+                }
+            )
+
+            // Upcoming Movies
+            SectionHeading(
+                text = stringResource(R.string.upcoming),
+                onAllClicked = {},
+                modifier = Modifier.padding(bottom = Dimens.spacing_16)
+            )
+
+
+        }
+        itemsIndexed(dummyData) { index, item ->
+            HorizontalMovieCard(
+                imageUrl = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
+                title = "Mission: IMPOSSIBLE - Dead Reckoning",
+                genre = "Action, Adventure",
+                duration = "162",
+                ageRating = "13",
+                studio = "2D",
+                modifier = Modifier.padding(
+                    start = Dimens.spacing_24,
+                    end = Dimens.spacing_24,
+                    bottom = if (index != (dummyData.size - 1)) Dimens.spacing_16 else Dimens.zero
+                )
+            )
         }
     }
 }
@@ -158,56 +195,51 @@ private fun SectionHeading(
 @Composable
 private fun MovieCarousel(
     modifier: Modifier = Modifier,
+    pagerState: PagerState = rememberPagerState(initialPage = 1),
+    onMovieClicked: () -> Unit,
 ) {
-    /* TODO: Carousel is working ok but still not as expected, run it and you'll now */
     HorizontalPager(
         count = 10,
+        state = pagerState,
+        itemSpacing = Dimens.spacing_24,
+        contentPadding = PaddingValues(horizontal = Dimens.spacing_52),
         modifier = modifier.fillMaxSize()
-    ) { page ->
-        Card(
-            colors = CardDefaults.cardColors(Color.Transparent),
-            modifier = Modifier
-                .graphicsLayer {
-                    val pageOffset = calculateCurrentOffsetForPage(page)
-                    lerp(
-                        start = 0.85f.dp,
-                        stop = 1f.dp,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    ).also { scale ->
-                        scaleX = scale.value
-                        scaleY = scale.value
-                    }
-                    alpha = lerp(
-                        start = 0.5f.dp,
-                        stop = 1f.dp,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    ).value
-                }
-                .fillMaxWidth(0.88f)
-        ) {
-            VerticalMovieCard(
-                imageUrl = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
-                studio = "2D",
-                title = "Mission: IMPOSSIBLE - Dead Reckoning",
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+    ) {
+        VerticalMovieCard(
+            imageUrl = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
+            studio = "2D",
+            title = "Mission: IMPOSSIBLE - Dead Reckoning",
+            modifier = Modifier.clickable {
+                onMovieClicked()
+            }
+        )
     }
 }
 
 @Composable
 private fun AdvanceTicket(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onMovieClicked: () -> Unit,
 ) {
+    val dummyData = listOf<String>(
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
+    )
     LazyRow(
         modifier = modifier.fillMaxWidth(),
         contentPadding = PaddingValues(horizontal = Dimens.spacing_24)
     ) {
-        item {
+        itemsIndexed(dummyData) { index, item ->
             VerticalMovieCard(
                 imageUrl = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
                 studio = "2D",
-                modifier = Modifier.fillMaxWidth(0.5f)
+                modifier = Modifier
+                    .width(160.dp)
+                    .padding(end = if (index != (dummyData.size - 1)) Dimens.spacing_16 else Dimens.zero)
+                    .clickable {
+                        onMovieClicked()
+                    }
             )
         }
     }

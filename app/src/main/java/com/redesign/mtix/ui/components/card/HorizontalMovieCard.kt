@@ -42,11 +42,11 @@ fun HorizontalMovieCard(
             contentDescription = title,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .width(100.dp)
-                .height(140.dp)
+                .width(104.dp)
+                .height(144.dp)
                 .clip(Shapes.large)
-                .padding(end = Dimens.spacing_16)
         )
+        Spacer(modifier = Modifier.width(Dimens.spacing_16))
         Column {
             Text(
                 text = title,
