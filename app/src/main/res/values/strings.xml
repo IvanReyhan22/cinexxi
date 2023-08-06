@@ -33,4 +33,24 @@
     <string name="advance_ticket">Advance Ticket</string>
     <string name="upcoming">Upcoming</string>
     <string name="ticket">Ticket</string>
+    <string name="screen_indicator">screen indicator on top</string>
+    <string name="select_a_seat">Select a seat</string>
+    <string name="available_seats">Available Seats</string>
+    <string name="booked_seats">Booked Seats</string>
+    <string name="selected_seats">Selected Seats</string>
+    <string name="unidentified">Unidentified</string>
+    <string name="payment">Payment</string>
+    <string name="transaction_detail">Transaction Detail</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="seats">Seats</string>
+    <string name="fee">Fee</string>
+    <string name="ticket_price">Ticket Price</string>
+    <string name="voucher">Voucher</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="total_payment">Total Payment</string>
+    <string name="payment_terms">*Ticket that have been purchased cannot be refunded\n*Children (2 years old) are required to purchase ticket</string>
+    <string name="proceed">Proceed</string>
+    <string name="your_ticket">Your Ticket</string>
+    <string name="ticket_id">Ticket ID</string>
 </resources>

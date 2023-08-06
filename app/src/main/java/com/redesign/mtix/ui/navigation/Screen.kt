@@ -12,4 +12,7 @@ sealed class Screen(val route: String) {
     object Account : Screen("account_screen")
 
     object MovieDetail : Screen("movie_detail_screen")
+    object SelectSeat : Screen("select_seat_screen")
+    object TicketPayment : Screen("ticket_payment_screen")
+    object MovieTicket : Screen("movie_ticket_screen")
 }

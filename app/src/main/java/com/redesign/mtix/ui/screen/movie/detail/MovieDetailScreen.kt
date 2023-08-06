@@ -32,6 +32,7 @@ import com.redesign.mtix.R
 import com.redesign.mtix.ui.components.button.ButtonSize
 import com.redesign.mtix.ui.components.button.ButtonState
 import com.redesign.mtix.ui.components.button.MyButton
+import com.redesign.mtix.ui.navigation.Screen
 import com.redesign.mtix.ui.theme.Dimens
 import com.redesign.mtix.ui.theme.MtixTheme
 import com.redesign.mtix.ui.theme.Shades0
@@ -59,7 +60,9 @@ fun MovieDetailScreen(
             )
         }
         items(4) {
-            Theater()
+            Theater(onTimeClicked = {
+                navController.navigate(Screen.SelectSeat.route)
+            })
         }
     }
 }
@@ -277,7 +280,8 @@ private fun Ticket(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun Theater(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onTimeClicked: () -> Unit,
 ) {
     Column(
         modifier = modifier.padding(
@@ -328,41 +332,44 @@ private fun Theater(
                 state = ButtonState.SECONDARY,
                 size = ButtonSize.SMALL,
                 modifier = Modifier.padding(end = Dimens.spacing_8, bottom = Dimens.spacing_8),
-                onClick = {})
+                onClick = {
+                    onTimeClicked()
+                })
             MyButton(
                 label = "11:00",
                 state = ButtonState.SECONDARY,
                 size = ButtonSize.SMALL,
                 modifier = Modifier.padding(end = Dimens.spacing_8, bottom = Dimens.spacing_8),
-                onClick = {})
+                onClick = { onTimeClicked() })
             MyButton(
                 label = "13:00",
                 state = ButtonState.SECONDARY,
                 size = ButtonSize.SMALL,
                 modifier = Modifier.padding(end = Dimens.spacing_8, bottom = Dimens.spacing_8),
-                onClick = {})
+                onClick = { onTimeClicked() })
             MyButton(
                 label = "15:20",
                 state = ButtonState.SECONDARY,
                 size = ButtonSize.SMALL,
                 modifier = Modifier.padding(end = Dimens.spacing_8, bottom = Dimens.spacing_8),
-                onClick = {})
+                onClick = { onTimeClicked() })
             MyButton(
                 label = "18:40",
                 state = ButtonState.SECONDARY,
                 size = ButtonSize.SMALL,
                 modifier = Modifier.padding(end = Dimens.spacing_8, bottom = Dimens.spacing_8),
-                onClick = {})
+                onClick = { onTimeClicked() })
             MyButton(
                 label = "21:00",
                 state = ButtonState.SECONDARY,
                 size = ButtonSize.SMALL,
                 modifier = Modifier.padding(end = Dimens.spacing_8, bottom = Dimens.spacing_8),
-                onClick = {})
+                onClick = { onTimeClicked() })
         }
         Divider(
             modifier = Modifier
-                .fillMaxWidth().padding(top = Dimens.spacing_8),
+                .fillMaxWidth()
+                .padding(top = Dimens.spacing_8),
             color = MaterialTheme.colorScheme.surfaceVariant,
             thickness = Dimens.spacing_1,
         )

@@ -1,7 +1,5 @@
 package com.redesign.mtix.ui.screen.home
 
-//import androidx.compose.foundation.pager.HorizontalPager
-
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,8 +8,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Text
@@ -21,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -30,7 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.lerp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.*
@@ -39,10 +33,8 @@ import com.redesign.mtix.ui.components.card.HorizontalMovieCard
 import com.redesign.mtix.ui.components.card.VerticalMovieCard
 import com.redesign.mtix.ui.components.other.MyCarousel
 import com.redesign.mtix.ui.navigation.Screen
-import com.redesign.mtix.ui.theme.Alpine400
 import com.redesign.mtix.ui.theme.Dimens
 import com.redesign.mtix.ui.theme.MtixTheme
-import dev.chrisbanes.snapper.ExperimentalSnapperApi
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
@@ -55,6 +47,7 @@ fun HomeScreen(
         "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
         "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.wallpapersden.com%2Fimage%2Fwxl-mission-impossible-dead-reckoning-official-poster_90699.jpg&f=1&nofb=1&ipt=81c6cf3f06bfab5cf0b7d03e0ceb34bf933ba9ad39b91f79b3ed96c54e665325&ipo=images",
     )
+    val carouselState = androidx.compose.foundation.pager.rememberPagerState()
 
     LazyColumn(
         modifier = modifier
@@ -64,6 +57,7 @@ fun HomeScreen(
         item {
             MyCarousel(
                 itemsCount = 2,
+                pagerState = carouselState,
                 itemContent = {
                     Box(
                         modifier = Modifier

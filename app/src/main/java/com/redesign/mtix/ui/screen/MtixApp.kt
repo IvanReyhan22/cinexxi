@@ -26,6 +26,9 @@ import com.redesign.mtix.ui.navigation.Screen
 import com.redesign.mtix.ui.screen.home.HomeScreen
 import com.redesign.mtix.ui.screen.login.LoginScreen
 import com.redesign.mtix.ui.screen.movie.detail.MovieDetailScreen
+import com.redesign.mtix.ui.screen.movie.seat.SelectSeatScreen
+import com.redesign.mtix.ui.screen.payment.ticket.TicketPaymentScreen
+import com.redesign.mtix.ui.screen.payment.ticket.TicketScreen
 import com.redesign.mtix.ui.screen.register.RegisterScreen
 import com.redesign.mtix.ui.theme.Dimens
 
@@ -73,6 +76,15 @@ private fun MyNavigation(
         }
         composable(Screen.MovieDetail.route){
             MovieDetailScreen(navController = navController)
+        }
+        composable(Screen.SelectSeat.route){
+            SelectSeatScreen(navController = navController)
+        }
+        composable(Screen.TicketPayment.route){
+            TicketPaymentScreen(navController = navController)
+        }
+        composable(Screen.MovieTicket.route){
+            TicketScreen(navController = navController)
         }
     }
 }
